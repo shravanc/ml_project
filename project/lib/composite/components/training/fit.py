@@ -18,5 +18,6 @@ class Fit(Component):
     self.model.fit(
         self.data.x, 
         self.data.y, 
-        epochs=10
+        epochs=10,
+        callbacks=self.data.visualize,
     )

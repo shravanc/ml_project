@@ -7,6 +7,7 @@ class Split(Component):
     self.y = None
     self.eval_x = None
     self.eval_y = None
+    self.visualize = []
 
   def operation(self, obj):
     print("---Split---")

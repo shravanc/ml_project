@@ -11,11 +11,12 @@ from lib.composite.components.etl.load      import Load
 
 
 # Branch 2
-from lib.composite.components.eda.analyse     import Analyse
-from lib.composite.components.eda.preprocess  import Preprocess
-from lib.composite.components.eda.impute      import Impute
-from lib.composite.components.eda.split       import Split
-from lib.composite.components.eda.scale       import Scale
+from lib.composite.components.eda.analyse             import Analyse
+from lib.composite.components.eda.preprocess          import Preprocess
+from lib.composite.components.eda.cluster_imputation  import ClusterImputation
+from lib.composite.components.eda.impute              import Impute
+from lib.composite.components.eda.split               import Split
+from lib.composite.components.eda.scale               import Scale
 
 
 
@@ -24,16 +25,17 @@ from lib.composite.components.models.two_layered_dense_classifier import TwoLaye
 
 
 # Branch 4
-from lib.composite.components.training.compile   import Compile
-from lib.composite.components.training.fit       import Fit
-from lib.composite.components.training.evaluate  import Evaluate
+from lib.composite.components.training.compile    import Compile
+from lib.composite.components.training.visualize  import Visualize
+from lib.composite.components.training.fit        import Fit
+from lib.composite.components.training.evaluate   import Evaluate
+from lib.composite.components.training.summary    import Summary
 
 
 # Branch 5
 from lib.composite.components.saving.local import Local
 from lib.composite.components.saving.aws   import AWS
 from lib.composite.components.saving.gcp   import GCP
-
 
 # Branch 6
 from lib.composite.components.response.serving_info import ServingInfo
@@ -70,6 +72,7 @@ model.add( TwoLayeredDenseClassifier() )
 #Train
 train = Composite()
 train.add( Compile() )
+train.add( Visualize() )
 train.add( Fit() )
 train.add( Evaluate() )
 #train.add( Evaluate() )
@@ -79,6 +82,9 @@ save = Composite()
 save.add( Local() )
 
 
+#Serve
+serve = Composite()
+serve.add( LaunchPredictionService() )
 
 
 tree.add(etl)
@@ -86,6 +92,7 @@ tree.add(eda)
 tree.add(model)
 tree.add(train)
 tree.add(save)
+tree.add(serve)
 
 
 URL = "https://storage.googleapis.com/applied-dl/heart.csv"

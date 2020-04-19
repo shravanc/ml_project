@@ -5,9 +5,9 @@ class Extract(Component):
     self.url = None
 
   def operation(self, obj):
+    print("---Extract---")
     self.url = obj
     self.__download()
-    print("---Download---")
     return self
 
   def __download(self):
