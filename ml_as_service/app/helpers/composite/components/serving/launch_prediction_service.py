@@ -1,4 +1,4 @@
-from lib.composite.components.component import Component
+from app.helpers.composite.components.component import Component
 import os
 
 """

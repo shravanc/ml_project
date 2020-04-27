@@ -41,6 +41,6 @@ dashboard_blueprints.add_url_rule('/dashboard', view_func=dashboard_index, metho
 
 ml_service_blueprints.add_url_rule('/services',         view_func=ml_service_index, methods=['GET'] )
 ml_service_blueprints.add_url_rule('/fetch_model',      view_func=ml_service_fetch_model, methods=['GET'] )
-ml_service_blueprints.add_url_rule('/train_and_serve',  view_func=ml_service_train_and_serve, methods=['GET'] )
+ml_service_blueprints.add_url_rule('/train_and_serve',  view_func=ml_service_train_and_serve, methods=['POST'] )
 ml_service_blueprints.add_url_rule('/serve',            view_func=ml_service_serve, methods=['GET'] )
 

@@ -7,7 +7,7 @@ path = os.path.abspath(os.path.dirname(__file__)) + "/../instance/development.cf
 app = Flask(__name__)
 app.config.from_pyfile(path)
 db = SQLAlchemy(app)
-
+upload_path = '/home/shravan/tf/upload_path/'
 
 ml_model_path = os.path.abspath(os.path.dirname(__file__)) + '/ml/models/'
 
