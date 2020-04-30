@@ -3,9 +3,12 @@ from app.helpers.composite.components.component import Component
 class Load(Component):
   def __init__(self):
     self.files = None
+    self.target_col = None
   
   def operation(self, obj):
-    self.files = obj.files
+    self.files      = obj.files
+    self.target_col = obj.target_col
+  
     self.__load()
     print("---Load called---")
     return self

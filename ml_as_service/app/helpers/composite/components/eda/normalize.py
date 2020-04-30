@@ -1,6 +1,6 @@
 from app.helpers.composite.components.component import Component
 
-class Scale(Component):
+class Normalize(Component):
   def __init__(self):
     self.x = None
     self.y = None

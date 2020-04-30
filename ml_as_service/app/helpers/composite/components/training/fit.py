@@ -9,6 +9,10 @@ class Fit(Component):
     print("---Fit called---")
     self.model = obj.model
     self.data  = obj.data
+    try:
+      self.visualize = self.data.visualize
+    except:
+      self. visualize = []
 
     self.__fit()
     return self
@@ -19,5 +23,5 @@ class Fit(Component):
         self.data.x, 
         self.data.y, 
         epochs=10,
-        callbacks=self.data.visualize,
+        callbacks=self.visualize,
     )

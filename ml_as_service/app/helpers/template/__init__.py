@@ -13,7 +13,7 @@ from app.helpers.composite.components.eda.preprocess          import Preprocess
 from app.helpers.composite.components.eda.cluster_imputation  import ClusterImputation
 from app.helpers.composite.components.eda.impute              import Impute
 from app.helpers.composite.components.eda.split               import Split
-from app.helpers.composite.components.eda.scale               import Scale
+from app.helpers.composite.components.eda.normalize           import Normalize
 
 
 

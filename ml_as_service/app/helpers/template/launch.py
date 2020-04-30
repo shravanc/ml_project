@@ -19,7 +19,7 @@ class Launch(tmp.Template):
     eda.add( tmp.Impute() )
     eda.add( tmp.Preprocess() )
     eda.add( tmp.Split() )
-    eda.add( tmp.Scale() )
+    eda.add( tmp.Normalize() )
 
     return eda
     
@@ -31,7 +31,7 @@ class Launch(tmp.Template):
   def train(self):
     train = tmp.Composite()
     train.add( tmp.Compile() )
-    train.add( tmp.Visualize() )
+    #train.add( tmp.Visualize() )
     train.add( tmp.Fit() )
     train.add( tmp.Evaluate() )
 
@@ -44,6 +44,6 @@ class Launch(tmp.Template):
 
   def serve(self):
     serve = tmp.Composite()
-    serve.add( tmp.LaunchPredictionService() )
+    #serve.add( tmp.LaunchPredictionService() )
     return serve
 

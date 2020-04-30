@@ -5,9 +5,11 @@ class Transform(Component):
     self.filename = None
     self.df       = None
     self.files    = []
+    self.target_col = None
 
   def operation(self, obj):
     self.filename = obj.filename
+    self.target_col = obj.target_col
 
     self.__transform()
     print("---Transorm called---")
