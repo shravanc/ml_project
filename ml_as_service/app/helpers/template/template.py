@@ -5,13 +5,12 @@ from abc import ABC, abstractmethod
 
 class Template:
   def __init__(self):
-    self.tree = Composite()
+    self.tree     = Composite()
     self.branches = []
-    self.texts    = None
-    self.labels   = None
+    self.url      = None
 
-  def launch_template(self, texts):
-    self.texts = texts
+  def launch_template(self, url):
+    self.url = url
 
     self.branches.append(self.etl())
     self.branches.append(self.eda())

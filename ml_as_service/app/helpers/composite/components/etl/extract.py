@@ -5,8 +5,7 @@ class Extract(Component):
     self.url = None
 
   def operation(self, obj):
-    print("---Extract---")
-    self.url = obj
+    self.url = obj.url
     self.__download()
     return self
 

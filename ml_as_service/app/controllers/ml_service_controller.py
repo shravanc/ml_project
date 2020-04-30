@@ -14,7 +14,11 @@ def fetch_model():
 def train_and_serve():
   upload_file = request.files['file']
   filename = secure_filename(upload_file.filename)
-  upload_file.save(os.path.join(upload_path, filename))
+  absolute_filepath = os.path.join(upload_path, filename)
+  upload_file.save( absolute_filepath )
+
+  launch = Launch()
+  launch.launch_template( absolute_filepath )
 
   return jsonify({"received": "call"})
 
