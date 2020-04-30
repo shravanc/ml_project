@@ -22,6 +22,7 @@ def create_app(config_filename=None):
 
 def initialize_extensions(application):
   db = SQLAlchemy(application)
+  from app.models.registry import Registry
 
 
 def register_blueprints(application):
