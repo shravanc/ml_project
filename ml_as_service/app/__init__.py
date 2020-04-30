@@ -17,6 +17,7 @@ def create_app(config_filename=None):
   application.config.from_pyfile(config_filename)
   initialize_extensions(application)
   register_blueprints(application)
+  db.init_app(application)
   
   return application
 
