@@ -2,27 +2,22 @@ from app.helpers.composite.components.component import Component
 
 class Analyse(Component):
   def __init__(self):
+    self.params             = None
     self.describe           = None
-    self.numerical_values   = []
-    self.categorical_values = []
-    self.keys               = []
-    self.target_col         = None
-
 
   def operation(self, obj):
     print("---Analyse called---")
+    self.params = obj.params
     self.df = obj.df
-    self.keys = self.df.keys()
-    self.target_col = obj.target_col
+    self.params.table.keys = self.df.keys()
 
     self.__analyse()
     return self
 
   def __analyse(self):
     self.describe = self.df.describe()
-    self.numerical_values   = self.describe.keys()   
-    self.categorical_values = list(set(self.keys) - set(self.numerical_values))
-
-    
+    self.params.table.num_val = self.describe.keys()   
+    self.params.table.cat_val = list(set(self.params.table.keys) - \
+                                     set(self.params.table.num_val))
 
     print(self.describe)

@@ -2,12 +2,10 @@ from app.helpers.composite.components.component import Component
 
 class Extract(Component):
   def __init__(self):
-    self.url        = None
-    self.target_col = None
+    self.params     = None
 
   def operation(self, obj):
-    self.url        = obj.url
-    self.target_col = obj.target_col
+    self.params = obj.params
 
     self.__download()
     return self
@@ -15,6 +13,6 @@ class Extract(Component):
   def __download(self):
     import tensorflow as tf
     
-    self.filename = self.url #tf.keras.utils.get_file('heart.csv', self.url)
+    self.filename = self.params.table.url #tf.keras.utils.get_file('heart.csv', self.url)
     return
 

@@ -7,12 +7,12 @@ class Template:
   def __init__(self):
     self.tree     = Composite()
     self.branches = []
-    self.url      = None
-    self.target_col = None
+    self.params   = None
 
-  def launch_template(self, url, target_col):
-    self.url = url
-    self.target_col = target_col
+  def launch_template(self, params):
+    self.params = params
+    #self.url = url
+    #self.target_col = target_col
 
     self.branches.append(self.etl())
     self.branches.append(self.eda())

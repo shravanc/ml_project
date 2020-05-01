@@ -2,12 +2,14 @@ from app.helpers.composite.components.component import Component
 
 class Normalize(Component):
   def __init__(self):
+    self.params = None
     self.x = None
     self.y = None
     self.eval_x = None
     self.eval_y = None
   
   def operation(self, obj):
+    self.params = obj.params
     self.x = obj.x
     self.y = obj.y
     

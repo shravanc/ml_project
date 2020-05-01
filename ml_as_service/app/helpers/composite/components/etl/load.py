@@ -2,15 +2,16 @@ from app.helpers.composite.components.component import Component
 
 class Load(Component):
   def __init__(self):
+    self.params = None
     self.files = None
-    self.target_col = None
   
   def operation(self, obj):
+    print("---Load called---", obj.files)
+    self.params     = obj.params
     self.files      = obj.files
-    self.target_col = obj.target_col
   
     self.__load()
-    print("---Load called---")
+
     return self
 
   def __load(self):

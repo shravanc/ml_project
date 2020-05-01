@@ -2,6 +2,7 @@ from app.helpers.composite.components.component import Component
 
 class Split(Component):
   def __init__(self):
+    self.params = None
     self.df = None
     self.x = None
     self.y = None
@@ -13,9 +14,8 @@ class Split(Component):
 
   def operation(self, obj):
     print("---Split---")
+    self.params = obj.params
     self.df = obj.df
-    self.target_col = obj.target_col
-
 
     self.__split()
     return self
@@ -25,8 +25,8 @@ class Split(Component):
     self.x      = self.df.sample(frac=0.8, random_state=0)
     self.eval_x = self.df.drop( self.x.index )
 
-    self.y      = self.x.pop( self.target_col )
-    self.eval_y = self.eval_x.pop( self.target_col )
+    self.y      = self.x.pop( self.params.table.target_col )
+    self.eval_y = self.eval_x.pop( self.params.table.target_col )
 
 
     self.train_stats = self.x.describe()
