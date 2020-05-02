@@ -33,8 +33,10 @@ def train_and_serve():
   return jsonify({"received": "call"})
 
 
-def serve():
-  return jsonify({})
+def serve(_id):
+  data = __format_serve_data(_id)
+  __serve_me_please(data)
+  return jsonify({"id": _id, "data": data})
 
 
 # Private methods
@@ -59,13 +61,46 @@ def __save_file():
   upload_file.save( absolute_filepath )
   return absolute_filepath 
 
-
-"""
-data = {"target_column": target_column}
-registry = Registry(categories=data) 
-db.session.add(registry)
-db.session.commit()
-"""
 def __save_to_db(params):
   db.session.add(params.table)
   db.session.commit()
+
+
+def __format_serve_data(_id):
+  from sklearn.preprocessing import StandardScaler, MinMaxScaler
+  from sklearn import preprocessing
+
+  #import numpy as np
+  params = request.json
+  registry = Registry.query.get(_id)
+  params = __categories_features(registry, params)
+
+
+  data = []
+  inp = params["params"]
+  for k, v in inp.items():
+    data.append(v)
+
+  #print(data)
+  scaled_features = preprocessing.normalize([data]) #MinMaxScaler().fit_transform( [data] )
+  #print(scaled_features)
+  scaled_features = scaled_features.tolist() 
+  return scaled_features
+
+
+def __categories_features(registry, params):
+  categorical = registry.cat_val
+  categories  = registry.categories
+  for cat in categorical:
+    for c in categories:
+      #print("-----C**********>", c, cat)
+      if c['col'] == cat:
+        params['params'][cat] = c['categories'][params['params'][cat]]
+
+  return params
+
+def __serve_me_please(data):
+  print("tensor---input******>", data)
+  r = requests.post("http://localhost:8501/v1/models/saved_model:predict", data = {'instances': data})
+  print(r)
+

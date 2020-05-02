@@ -44,6 +44,6 @@ class Launch(tmp.Template):
 
   def serve(self):
     serve = tmp.Composite()
-    #serve.add( tmp.LaunchPredictionService() )
+    serve.add( tmp.LaunchPredictionService() )
     return serve
 
