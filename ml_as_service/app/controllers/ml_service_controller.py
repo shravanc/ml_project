@@ -35,11 +35,8 @@ def train_and_serve():
 
 def serve(_id):
   data = __format_serve_data(_id)
-  __serve_me_please(data)
-  return jsonify({"id": _id, "data": data})
-
-
-# Private methods
+  pred = __serve_me_please(data)
+  return jsonify({"id": _id, "data": data, "prediction": pred['predictions']})
 
 def __get_params():
 
@@ -70,7 +67,6 @@ def __format_serve_data(_id):
   from sklearn.preprocessing import StandardScaler, MinMaxScaler
   from sklearn import preprocessing
 
-  #import numpy as np
   params = request.json
   registry = Registry.query.get(_id)
   params = __categories_features(registry, params)
@@ -81,9 +77,7 @@ def __format_serve_data(_id):
   for k, v in inp.items():
     data.append(v)
 
-  #print(data)
   scaled_features = preprocessing.normalize([data]) #MinMaxScaler().fit_transform( [data] )
-  #print(scaled_features)
   scaled_features = scaled_features.tolist() 
   return scaled_features
 
@@ -93,14 +87,16 @@ def __categories_features(registry, params):
   categories  = registry.categories
   for cat in categorical:
     for c in categories:
-      #print("-----C**********>", c, cat)
       if c['col'] == cat:
         params['params'][cat] = c['categories'][params['params'][cat]]
 
   return params
 
 def __serve_me_please(data):
-  print("tensor---input******>", data)
-  r = requests.post("http://localhost:8501/v1/models/saved_model:predict", data = {'instances': data})
-  print(r)
+  import requests
+  import json
 
+  pd = {"instances": data}
+  headers = {'content-type': 'application/json', 'accept': 'application/json'}
+  r = requests.post("http://localhost:8501/v1/models/saved_model:predict", data=json.dumps(pd), headers=headers)
+  return r.json() 
